@@ -1,6 +1,6 @@
 ---
 title: "Covid91 vaccine study Final2022"
-author: "Put your name here!"
+author: "Cesar Guillen"
 output: 
   html_document:
     number_sections: true
@@ -26,6 +26,28 @@ A new  preventative vaccine (covid91) is under test in clinical trials. Given th
 
 ## Males
 
+```{r}
+Males <- filter(FinalDat, sex=="M")
+```
+
+```{r}
+Males <- select(Males, -sex)
+```
+
+```{r}
+dd2 <- davisdata %>% group_by(class,Sex) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd2,aes(x=class,y=count,fill=Sex))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd2,aes(x=class,y=prcnt*100,fill=Sex)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
 
 ## Females
 

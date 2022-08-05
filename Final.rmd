@@ -250,9 +250,7 @@ print(Deffichi)
 ```
 The efficacy above shows that the vaccine only has a difference of 15 with the placebo for the effectiveness against the virus, revealing that there are some cases where the placebo is more effective. The confidence level for the vaccine has a low of `r Defficlo`, and a high of `r Deffichi`.
 
-
-
 # Conclusion
-
+As we can infer about the vaccine, it has a higher chance of working better than the placebo if it is taken by straight men and women who also do not take drugs regularly. For the men we can see there is an higher estimate of effectiveness being at 68% which in the eyes of many would see it as a working drug. For straight women we can see that it too has an above average odds of effectiveness for the vaccine, it having 59% of effectiveness against the virus. But when we looked at the data for the subpopulations for the LGBTQ and the Drug Users, we found that the vaccine may not work for them. In the case for the LGBTQ population we found that the vaccine only has a chance of  13% of effectiveness, which in the real world would mean that this drug won't be allowed to be given to the population as a whole. For those who take drugs regularly we found that the vaccine has a 15% of effectiveness, where we can assume that the vaccine might not be as effective if there are other drugs in your body. We can assume that this vaccine might take a bit more time in experimnts before being released into the world of medicine and having the title of a vaccine that can prevent the spread of COVID. 
 
 

@@ -24,7 +24,7 @@ mutate(across(where(is.character), as.factor))
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
-## Males
+# Males
 
 ```{r}
 Males <- filter(FinalDat, sex=="M")
@@ -34,27 +34,58 @@ Males <- filter(FinalDat, sex=="M")
 Males <- select(Males, -sex)
 ```
 
+## Barplot for Males
 ```{r}
-dd2 <- davisdata %>% group_by(class,Sex) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+dd2 <- Males %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
 
 
 # the group_by followed by summarize(count=n())
 
-basicC <- ggplot(dd2,aes(x=class,y=count,fill=Sex))
+basicC <- ggplot(dd2,aes(x=infected,y=count,fill=treatment))
 basicC + geom_bar(stat="identity",position="dodge")
 
 #Now for percentage plot
 
-basicCC <- ggplot(dd2,aes(x=class,y=prcnt*100,fill=Sex)) 
+basicCC <- ggplot(dd2,aes(x=infected,y=prcnt*100,fill=treatment)) 
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 
-## Females
+## Numerical Summary Male
+```{r}
+table1 <- xtabs(~infected + treatment, data=Males)
+rowPerc(table1)
+colPerc(table1)
+```
+This chart is showing that the percent of males who took the placebo and were infected with COVID19 was 2.68 percent, while the percent of males who took the vaccine and were infected with COVID19 was 1.28 percent, which we can guess means that the vaccine is working efficiently for males. 
+
+## Inferential Results Male
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+According to the inferential results above, we can see that the men who took the placebo are almost twice as likely to contract COVID19 than the men who took the vaccine. And with the p-value being 2.0921 we can assume that the chances are low for there being no difference between the placebo and the vaccine.
 
 
-## LGBTQ
+
+# Females
+
+```{r}
+Females <- filter(FinalDat, sex=="F")
+```
+
+```{r}
+Females <- select(Females, -sex)
+```
+
+## Barplot for Females
 
 
 
-## Druggies
+# LGBTQ
+
+
+
+# Druggies
 

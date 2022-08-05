@@ -27,7 +27,7 @@ A new  preventative vaccine (covid91) is under test in clinical trials. Given th
 # Males
 
 ```{r}
-Males <- filter(FinalDat, sex=="M")
+Males <- filter(FinalData, sex=="M")
 ```
 
 ```{r}
@@ -88,7 +88,7 @@ The confidence interval for the effectiveness for the vaccine for the males in t
 # Females
 
 ```{r}
-Females <- filter(FinalDat, sex=="F")
+Females <- filter(FinalData, sex=="F")
 ```
 
 ```{r}
@@ -144,6 +144,27 @@ The confidence interval of the effectiveness of the vaccine for females has a lo
 
 
 # LGBTQ
+```{r}
+LGBTQ <- filter(FinalData, LGBTQ == "gay")
+```
+
+## LGBTQ Barplot
+```{r}
+dd2 <- LGBTQ %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd2,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd2,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+The box plots above show the relationship between the amount of people in the LGBTQ community who took the placebo and the vaccine, and it seems that those who took the vaccine were the ones that had a higher amount of those who got infected with the COVID19 virus. Almost 80 percent of those who were infected with the virus were those who took the vaccine and were in the LGBTQ community. 
 
 
 

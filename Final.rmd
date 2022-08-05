@@ -64,10 +64,24 @@ This chart is showing that the percent of males who took the placebo and were in
 ```{r}
 chisq.test(table1)
 chisqtestGC(table1)
-fisher.test(table1)
+fishtestm<-fisher.test(table1)
+print(fishtestm)
 ```
 
 According to the inferential results above, we can see that the men who took the placebo are almost twice as likely to contract COVID19 than the men who took the vaccine. And with the p-value being 2.0921 we can assume that the chances are low for there being no difference between the placebo and the vaccine.
+
+## Efficancy Males
+```{r}
+options(digits = 1)
+maleffic=fishtestm$estimate/(1+fishtestm$estimate)*100
+malefficlo=fishtestm$conf.int[1]/(1+fishtestm$conf.int[1])*100
+maleffichi=fishtestm$conf.int[2]/(1+fishtestm$conf.int[2])*100
+print(maleffic)
+print(malefficlo)
+print(maleffichi)
+```
+The confidence interval for the effectiveness for the vaccine for the males in the expirement has a low of `r malefficlo`, and a high of `r maleffichi`. 
+
 
 
 
@@ -116,6 +130,7 @@ fishtestf
 ```
 The table above gives us two very promising signs of the vaccine, one that shows the ratio of those who took the placebo are 1.42 percent more likely to contract the virus than those who took the vaccine, which would mean that the vaccine would work for females as well. We are also given a small p-value, which is .0009484, meaning the chances of getting no difference between the vaccine and the placebo are extremely small. 
 
+## Efficacy Females
 ```{r}
 options(digits = 1)
 femeffic=fishtestf$estimate/(1+fishtestf$estimate)*100

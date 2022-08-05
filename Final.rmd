@@ -1,5 +1,5 @@
 ---
-title: "Covid91 vaccine study Final2022"
+title: "Covid19 vaccine study Final2022"
 author: "Cesar Guillen"
 output: 
   html_document:

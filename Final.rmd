@@ -50,6 +50,8 @@ basicCC <- ggplot(dd2,aes(x=infected,y=prcnt*100,fill=treatment))
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 
+As seen in both graphs we can infer that the vaccine is working better than the placebo for the Males in the expiriment because there have been fewer cases where those who were given the vaccine contracted COVID19 than those who took the placebo. 
+
 ## Numerical Summary Male
 ```{r}
 table1 <- xtabs(~infected + treatment, data=Males)
@@ -80,7 +82,50 @@ Females <- select(Females, -sex)
 ```
 
 ## Barplot for Females
+```{r}
+dd2 <- Females %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
 
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd2,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd2,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+Both box plots above show that there have been very few cases where the females who have been given the placebo and the vaccine where they have gotten COVID19, but it shows that those who took the vaccine are less likley to get COVID19 than those who took the placebo. 
+
+## Numerical Summary Females
+```{r}
+table2 <- xtabs(~infected + treatment, data=Females)
+rowPerc(table2)
+colPerc(table2)
+```
+According to the table, 2.3 percent of the females who took the placebo were infected with COVID19, which is almost twice the amount of those who got COVID19 and were given the vaccine, which can be useful information as to determine which is better for females. 
+
+## Inferential Summary Females
+```{r}
+chisq.test(table2)
+chisqtestGC(table2)
+fishtestf<-fisher.test(table2)
+fishtestf
+```
+The table above gives us two very promising signs of the vaccine, one that shows the ratio of those who took the placebo are 1.42 percent more likely to contract the virus than those who took the vaccine, which would mean that the vaccine would work for females as well. We are also given a small p-value, which is .0009484, meaning the chances of getting no difference between the vaccine and the placebo are extremely small. 
+
+```{r}
+options(digits = 1)
+femeffic=fishtestf$estimate/(1+fishtestf$estimate)*100
+femefficlo=fishtestf$conf.int[1]/(1+fishtestf$conf.int[1])*100
+femeffichi=fishtestf$conf.int[2]/(1+fishtestf$conf.int[2])*100
+print(femeffic)
+print(femefficlo)
+print(femeffichi)
+```
+The confidence interval of the effectiveness of the vaccine for females has a low `r femefficlo`, and has a high of `r femeffichi`. 
 
 
 # LGBTQ

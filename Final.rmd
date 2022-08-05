@@ -166,7 +166,46 @@ basicCC + geom_bar(stat="identity", position = "dodge")
 
 The box plots above show the relationship between the amount of people in the LGBTQ community who took the placebo and the vaccine, and it seems that those who took the vaccine were the ones that had a higher amount of those who got infected with the COVID19 virus. Almost 80 percent of those who were infected with the virus were those who took the vaccine and were in the LGBTQ community. 
 
+## Numerical Summary LGBTQ
+```{r}
+table3 <- xtabs(~infected + treatment, data=LGBTQ)
+rowPerc(table3)
+colPerc(table3)
+```
+As seen in the table, 3 percent of those who were given the vaccine caught the virus, where as the placebo is now the low percentage of those who were infected with the virus. 
+
+## Inferential Summary LGBTQ
+```{r}
+chisq.test(table3)
+chisqtestGC(table3)
+fishtestL<-fisher.test(table3)
+fishtestL
+```
+The odds of actually getting the virus while taking the placebo and only 0.1 percent different than taking the vaccine and getting the virus. This can show that the vaccine may not work for this portion of the population.
+
+## Efficacy
+```{r}
+options(digits = 1)
+Leffic=fishtestL$estimate/(1+fishtestL$estimate)*100
+Lefficlo=fishtestL$conf.int[1]/(1+fishtestL$conf.int[1])*100
+Leffichi=fishtestL$conf.int[2]/(1+fishtestL$conf.int[2])*100
+print(Leffic)
+print(Lefficlo)
+print(Leffichi)
+```
+The efficacy shows that this vaccine is only 13 percent effective against the virus. The confidnce interval for the effectiveness of the vaccine has a low of `r Lefficlo`, and high of `r Leffichi`. 
+
 
 
 # Druggies
+
+
+
+
+
+
+
+
+
+
 
